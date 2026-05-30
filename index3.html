@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+ <html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Test trắc nghiệm</title>
+    
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    background:#020412;
+    font-family:'Poppins',sans-serif;
+    color:white;
+}
+
+/* =========================
+BACKGROUND
+========================= */
+
+.bg{
+    position:fixed;
+    inset:0;
+
+    background:
+    radial-gradient(circle at top left, rgba(0,255,255,.15), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(132,0,255,.18), transparent 35%),
+    radial-gradient(circle at center, rgba(0,120,255,.10), transparent 40%);
+
+    animation:bgMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgMove{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.1);
+    }
+
+}
+
+/* =========================
+STARS
+========================= */
+
+.star{
+    position:absolute;
+    background:white;
+    border-radius:50%;
+    animation:twinkle linear infinite;
+}
+
+@keyframes twinkle{
+
+    0%,100%{
+        opacity:.2;
+        transform:scale(.5);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.5);
+    }
+
+}
+
+/* =========================
+SHOOTING STARS
+========================= */
+
+.shooting{
+
+    position:absolute;
+
+    width:260px;
+    height:2px;
+
+    background:
+    linear-gradient(90deg,white,transparent);
+
+    transform:rotate(-35deg);
+
+    animation:shoot 6s linear infinite;
+}
+
+@keyframes shoot{
+
+    0%{
+        transform:
+        translateX(-500px)
+        translateY(0)
+        rotate(-35deg);
+
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    100%{
+        transform:
+        translateX(2200px)
+        translateY(600px)
+        rotate(-35deg);
+
+        opacity:0;
+    }
+
+}
+
+/* =========================
+em zai can va nè
+========================= */
+
+canvas{
+    position:fixed;
+    inset:0;
+}
+
+/* =========================
+glow vipro
+ăn ba tô cơm
+========================= */
+
+.glow{
+
+    position:fixed;
+
+    width:350px;
+    height:350px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle,
+    rgba(0,255,255,.18),
+    transparent 70%);
+
+    pointer-events:none;
+
+    transform:translate(-50%,-50%);
+}
+
+/* =========================
+home nhà nghỉ
+========================= */
+
+.home{
+
+    position:relative;
+    z-index:10;
+
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+.title{
+
+    font-size:5rem;
+
+    font-family:'Orbitron',sans-serif;
+
+    font-weight:900;
+
+    background:
+    linear-gradient(
+    90deg,
+    #00f7ff,
+    #8f5cff,
+    #00f7ff);
+
+    background-size:400%;
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:gradientMove 6s linear infinite;
+
+    text-shadow:
+    0 0 25px rgba(0,255,255,.4);
+}
+
+@keyframes gradientMove{
+
+    from{
+        background-position:0%;
+    }
+
+    to{
+        background-position:400%;
+    }
+
+}
+
+.desc{
+
+    margin-top:25px;
+
+    color:#d6d6d6;
+
+    max-width:800px;
+
+    line-height:1.9;
+}
+
+.menu{
+
+    margin-top:50px;
+
+    display:flex;
+    gap:30px;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+}
+
+.card{
+
+    width:280px;
+
+    padding:35px;
+
+    border-radius:30px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:300%;
+    height:300%;
+
+    background:
+    linear-gradient(
+    45deg,
+    transparent,
+    rgba(0,255,255,.25),
+    transparent);
+
+    top:-150%;
+    left:-150%;
+
+    transform:rotate(25deg);
+
+    transition:.8s;
+}
+
+.card:hover::before{
+
+    top:-30%;
+    left:-30%;
+}
+
+.card:hover{
+
+    transform:
+    translateY(-12px)
+    scale(1.04);
+
+    box-shadow:
+    0 0 35px rgba(0,255,255,.35);
+}
+
+.icon{
+
+    font-size:3rem;
+}
+
+.cardTitle{
+
+    margin-top:18px;
+
+    font-size:1.6rem;
+
+    color:#00f7ff;
+}
+
+.cardDesc{
+
+    margin-top:12px;
+
+    line-height:1.8;
+
+    color:#d6d6d6;
+}
+
+/* =========================
+QUIZ SCREEN
+========================= */
+
+.screen{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:20;
+}
+
+.quizBox{
+
+    width:950px;
+    max-width:92%;
+
+    padding:40px;
+
+    border-radius:30px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    animation:show .6s ease;
+}
+
+@keyframes show{
+
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.progress{
+
+    margin-bottom:20px;
+
+    color:#00f7ff;
+
+    font-weight:600;
+}
+
+.question{
+
+    font-size:1.5rem;
+
+    line-height:1.8;
+
+    margin-bottom:30px;
+}
+
+.answers{
+
+    display:grid;
+    gap:18px;
+}
+
+.answer{
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,.04);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.answer:hover{
+
+    transform:scale(1.03);
+
+    border-color:#00f7ff;
+
+    box-shadow:
+    0 0 20px rgba(0,255,255,.3);
+}
+
+.correct{
+
+    background:#00ff88 !important;
+    color:black;
+}
+
+.wrong{
+
+    background:#ff2d55 !important;
+}
+
+/* =========================
+RESULT
+========================= */
+
+.result{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:30;
+}
+
+.resultCard{
+
+    width:700px;
+    max-width:92%;
+
+    padding:50px;
+
+    border-radius:35px;
+
+    text-align:center;
+
+    background:
+    rgba(255,255,255,.06);
+
+    border:
+    1px solid rgba(255,255,255,.1);
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+    0 0 50px rgba(0,255,255,.15);
+}
+
+.resultTitle{
+
+    font-size:2.5rem;
+
+    font-family:'Orbitron',sans-serif;
+
+    color:#00f7ff;
+}
+
+.score{
+
+    margin-top:35px;
+
+    font-size:5rem;
+
+    font-family:'Orbitron',sans-serif;
+
+    color:#00f7ff;
+}
+
+.rank{
+
+    margin-top:20px;
+
+    font-size:1.5rem;
+
+    color:#9d4dff;
+}
+
+/* =========================
+DISCORD
+========================= */
+
+.discordBtn{
+
+    position:fixed;
+
+    right:25px;
+    bottom:25px;
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,.06);
+
+    border:
+    1px solid rgba(255,255,255,.1);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    z-index:999;
+
+    transition:.35s;
+}
+
+.discordBtn:hover{
+
+    transform:scale(1.1);
+
+    box-shadow:
+    0 0 35px rgba(88,101,242,.7);
+}
+
+.discordIcon{
+
+    width:40px;
+    height:40px;
+}
+
+@media(max-width:768px){
+
+    .title{
+        font-size:2.8rem;
+    }
+
+    .menu{
+        flex-direction:column;
+    }
+
+    .question{
+        font-size:1.1rem;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div id="stars"></div>
+
+<div class="shooting" style="top:10%;left:-30%;animation-delay:0s;"></div>
+<div class="shooting" style="top:40%;left:-40%;animation-delay:2s;"></div>
+<div class="shooting" style="top:70%;left:-50%;animation-delay:4s;"></div>
+
+<canvas id="canvas"></canvas>
+
+<div class="glow" id="glow"></div>
+
+<!-- HOME -->
+
+<div class="home" id="home">
+
+    <div class="title">
+        Test information technology
+    </div>
+
+    <div class="desc">
+        Test information technology
+        liên hệ bên dưới 
+    </div>
+
+    <div class="menu">
+
+        <div class="card" onclick="startIntro()">
+
+            <div class="icon">🚀</div>
+
+            <div class="cardTitle">
+                Làm Bài
+            </div>
+
+            <div class="cardDesc">
+                20 câu hỏi trải dài từ dễ đến khó,
+                random đáp án từ 0 1 2 3.
+            </div>
+
+        </div>
+
+        <div class="card" onclick="openMusic()">
+
+            <div class="icon">🎧</div>
+
+            <div class="cardTitle">
+                Nghe Nhạc
+            </div>
+
+            <div class="cardDesc">
+                chill nào.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- QUIZ -->
+
+<div class="screen" id="quizScreen">
+
+    <div class="quizBox">
+
+        <div class="progress" id="progress"></div>
+
+        <div class="question" id="question"></div>
+
+        <div class="answers" id="answers"></div>
+
+    </div>
+
+</div>
+
+<!-- RESULT -->
+
+<div class="result" id="result">
+
+    <div class="resultCard">
+
+        <div class="resultTitle">
+            SYSTEM RESULT
+        </div>
+
+        <div class="score" id="score">
+            0%
+        </div>
+
+        <div class="rank" id="rank">
+            RANK : ...
+        </div>
+
+    </div>
+
+</div>
+
+<!-------đít cọt nè-->
+
+<div class="discordBtn" onclick="openDiscord()">
+
+    <img
+    src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png"
+    class="discordIcon">
+
+</div>
+
+<script>
+
+/* =========================
+chơi đồ
+========================= */
+
+function openMusic(){
+
+    window.location.href =
+    "https://pro453.github.io/my-project-3/";
+
+}
+
+function openDiscord(){
+
+    window.open(
+    "https://discord.gg/e6zA38Kg",
+    "_blank"
+    );
+
+}
+
+/* =========================
+STARS
+========================= */
+
+const stars =
+document.getElementById("stars");
+
+for(let i=0;i<260;i++){
+
+    let star =
+    document.createElement("div");
+
+    star.classList.add("star");
+
+    let size =
+    Math.random()*3;
+
+    star.style.width =
+    size+"px";
+
+    star.style.height =
+    size+"px";
+
+    star.style.left =
+    Math.random()*window.innerWidth+"px";
+
+    star.style.top =
+    Math.random()*window.innerHeight+"px";
+
+    star.style.animationDuration =
+    (Math.random()*5+2)+"s";
+
+    stars.appendChild(star);
+
+}
+
+/* =========================
+PARTICLES
+========================= */
+
+const canvas =
+document.getElementById("canvas");
+
+const ctx =
+canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = [];
+
+for(let i=0;i<120;i++){
+
+    particles.push({
+
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+
+        r:Math.random()*2+1,
+
+        dx:(Math.random()-.5)*1,
+        dy:(Math.random()-.5)*1
+
+    });
+
+}
+
+function animate(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if(p.x<0||p.x>canvas.width)
+        p.dx *= -1;
+
+        if(p.y<0||p.y>canvas.height)
+        p.dy *= -1;
+
+        ctx.beginPath();
+
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+
+        ctx.fillStyle="#00f7ff";
+
+        ctx.fill();
+
+    });
+
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+
+/* =========================
+CURSOR GLOW
+========================= */
+
+const glow =
+document.getElementById("glow");
+
+window.addEventListener("mousemove",(e)=>{
+
+    glow.style.left =
+    e.clientX+"px";
+
+    glow.style.top =
+    e.clientY+"px";
+
+});
+
+/* =========================
+test độ trung thành
+========================= */
+
+const introQuestion = {
+
+    q:"Bạn có thích học lập trình không?",
+    a:["Có 🚀","Không 🌎"]
+
+};
+
+/* =========================
+câu hỏi chính
+========================= */
+
+const codingQuiz = [
+
+{
+q:"HTML dùng để làm gì?",
+a:["Trang trí web","Tạo cấu trúc web","Làm game","Hack wifi"],
+c:1
+},
+
+{
+q:"CSS dùng để?",
+a:["Thiết kế giao diện","Tạo RAM","Tạo CPU","Làm server"],
+c:0
+},
+
+{
+q:"JavaScript chạy chủ yếu ở đâu?",
+a:["Máy giặt","GPU","Trình duyệt","RAM"],
+c:2
+},
+
+{
+q:"Python nổi tiếng vì?",
+a:["Khó học","Dễ học","Lag","Nặng"],
+c:1
+},
+
+{
+q:"C++ mạnh về?",
+a:["Hiệu năng","Photoshop","Hack","Word"],
+c:0
+},
+
+{
+q:"C# được tạo bởi?",
+a:["Apple","Meta","Google","Microsoft"],
+c:3
+},
+
+{
+q:"Pascal thường dùng trong?",
+a:["Giáo dục","AAA Game","Hack","Thiết kế"],
+c:0
+},
+
+{
+q:"Java nổi tiếng vì?",
+a:["Đa nền tảng","Làm bánh","Hack wifi","FPS"],
+c:0
+},
+
+{
+q:"Loop dùng để?",
+a:["Thoát game","Lặp","Hack","Tắt máy"],
+c:1
+},
+
+{
+q:"Biến dùng để?",
+a:["Lưu dữ liệu","Làm GPU","Hack","Tăng FPS"],
+c:0
+},
+
+{
+q:"Thẻ <img> dùng để?",
+a:["Hiện video","Hiện ảnh","Hiện game","Hack"],
+c:1
+},
+
+{
+q:"CSS viết màu bằng?",
+a:["rgb","cpu","fps","gpu"],
+c:0
+},
+
+{
+q:"console.log() thuộc ngôn ngữ nào?",
+a:["Pascal","C++","JavaScript","Python"],
+c:2
+},
+
+{
+q:"Python dùng dấu gì để comment?",
+a:["//","#","<!--","**"],
+c:1
+},
+
+{
+q:"Câu lệnh if dùng để?",
+a:["Điều kiện","Hack","Render","FPS"],
+c:0
+},
+
+{
+q:"Trong C++, cout dùng để?",
+a:["Nhập dữ liệu","Xuất dữ liệu","Hack","Lặp"],
+c:1
+},
+
+{
+q:"Framework web của Python?",
+a:["Django","Unity","Photoshop","Canva"],
+c:0
+},
+
+{
+q:"HTML là viết tắt của?",
+a:["HyperText Markup Language","Hack Tool","High Text","None"],
+c:0
+},
+
+{
+q:"CSS là viết tắt của?",
+a:["Cyber Style","Cascading Style Sheets","Cool Style","None"],
+c:1
+},
+
+{
+q:"JavaScript dùng nhiều để?",
+a:["Làm web động","Làm CPU","Hack RAM","Tăng FPS"],
+c:0
+}
+
+];
+
+/* =========================
+câu hỏi phụ
+========================= */
+
+const uniQuiz = [
+
+{
+q:"ĐH Bách Khoa nổi tiếng về?",
+a:["Kỹ thuật","Múa","Nấu ăn","Hack"],
+c:0
+},
+
+{
+q:"Đại học cần điều gì?",
+a:["ăn ba tô cơm","Kiên trì","Hack","FPS"],
+c:1
+},
+
+{
+q:"Học nhóm giúp?",
+a:["Lag","Hiểu bài hơn","Hack","None"],
+c:1
+},
+
+{
+q:"CNTT học gì?",
+a:["Nấu ăn","Lập trình","Múa","Hack"],
+c:1
+},
+
+{
+q:"Kỹ năng mềm quan trọng?",
+a:["Có","Không","Hack","None"],
+c:0
+},
+
+{
+q:"Sinh viên nên?",
+a:["Tự học","Ngủ","Hack wifi","Spam"],
+c:0
+},
+
+{
+q:"Ước mơ giúp?",
+a:["Có động lực","Lag","Hack","None"],
+c:0
+},
+
+{
+q:"Đi học đúng giờ giúp?",
+a:["Kỷ luật","Hack","FPS","None"],
+c:0
+},
+
+{
+q:"ĐH Quốc Gia nổi bật về?",
+a:["Nghiên cứu","Múa","Nấu ăn","Hack"],
+c:0
+},
+
+{
+q:"Khi áp lực nên?",
+a:["Chia sẻ","Bỏ học","Hack","Spam"],
+c:0
+},
+
+{
+q:"Kỹ sư thường làm?",
+a:["Giải quyết vấn đề","Ca hát","Hack","Múa"],
+c:0
+},
+
+{
+q:"Học đại học cần?",
+a:["Tự giác","Hack","Lag","FPS"],
+c:0
+},
+
+{
+q:"Điểm mạnh của tự học?",
+a:["Hiểu sâu","Hack","Lag","None"],
+c:0
+},
+
+{
+q:"Đại học giúp?",
+a:["Mở rộng kiến thức","Hack","FPS","Spam"],
+c:0
+},
+
+{
+q:"Học tập tốt cần?",
+a:["Kỷ luật","Hack","Game","None"],
+c:0
+},
+
+{
+q:"Kỹ năng teamwork là?",
+a:["Làm việc nhóm","Hack","Spam","Lag"],
+c:0
+},
+
+{
+q:"Sinh viên nên tránh?",
+a:["Lười học","Tự học","Kỷ luật","Đúng giờ"],
+c:0
+},
+
+{
+q:"Đam mê giúp?",
+a:["Có động lực","Hack","Lag","None"],
+c:0
+},
+
+{
+q:"CV dùng để?",
+a:["Xin việc","Hack","Spam","FPS"],
+c:0
+},
+
+{
+q:"Phỏng vấn cần?",
+a:["Tự tin","Hack","Lag","Spam"],
+c:0
+}
+
+];
+
+/* =========================
+hệ thống
+========================= */
+
+let currentQuiz = [];
+let current = 0;
+let score = 0;
+
+const quizScreen =
+document.getElementById("quizScreen");
+
+const question =
+document.getElementById("question");
+
+const answers =
+document.getElementById("answers");
+
+const progress =
+document.getElementById("progress");
+
+/* =========================
+play nào
+========================= */
+
+function startIntro(){
+
+    document
+    .getElementById("home")
+    .style.display = "none";
+
+    quizScreen.style.display = "flex";
+
+    question.innerHTML =
+    introQuestion.q;
+
+    answers.innerHTML = "";
+
+    introQuestion.a.forEach((ans,index)=>{
+
+        let div =
+        document.createElement("div");
+
+        div.classList.add("answer");
+
+        div.innerHTML = ans;
+
+        div.onclick = ()=>{
+
+            current = 0;
+            score = 0;
+
+            if(index===0){
+
+                currentQuiz = codingQuiz;
+
+            }else{
+
+                currentQuiz = uniQuiz;
+
+            }
+
+            loadQuestion();
+
+        };
+
+        answers.appendChild(div);
+
+    });
+
+}
+
+/* =========================
+cấu trúc 
+========================= */
+
+function loadQuestion(){
+
+    if(current >= 20){
+
+        showResult();
+        return;
+    }
+
+    const q =
+    currentQuiz[current];
+
+    progress.innerHTML =
+    `Câu ${current+1}/20`;
+
+    question.innerHTML =
+    q.q;
+
+    answers.innerHTML = "";
+
+    q.a.forEach((ans,index)=>{
+
+        let div =
+        document.createElement("div");
+
+        div.classList.add("answer");
+
+        div.innerHTML = ans;
+
+        div.onclick =
+        ()=>checkAnswer(div,index);
+
+        answers.appendChild(div);
+
+    });
+
+}
+
+/* =========================
+CHECK ANSWER
+========================= */
+
+function checkAnswer(element,index){
+
+    const q =
+    currentQuiz[current];
+
+    if(index===q.c){
+
+        element.classList.add("correct");
+
+        score++;
+
+    }else{
+
+        element.classList.add("wrong");
+
+    }
+
+    document
+    .querySelectorAll(".answer")
+    .forEach(btn=>{
+
+        btn.style.pointerEvents="none";
+
+    });
+
+    setTimeout(()=>{
+
+        current++;
+        loadQuestion();
+
+    },800);
+
+}
+
+/* =========================
+rank cho mấy con vợ
+========================= */
+
+function showResult(){
+
+    quizScreen.style.display =
+    "none";
+
+    document
+    .getElementById("result")
+    .style.display = "flex";
+
+    const percent =
+    Math.floor((score/20)*100);
+
+    document
+    .getElementById("score")
+    .innerHTML =
+    percent + "%";
+
+    if(percent===100){
+
+        rank.innerHTML =
+        "RANK : vững và hiểu biết nhiều đấy";
+
+    }else if(percent>=80){
+
+        rank.innerHTML =
+        "RANK : tốt lắm";
+
+    }else if(percent>=60){
+
+        rank.innerHTML =
+        "RANK : trung bình thôi nhé";
+    }else if(percent>=40){
+
+        rank.innerHTML =
+        "RANK : tạm tạm";
+
+    }else{
+
+        rank.innerHTML =
+        "RANK : về nhà học lại, bớt game đê";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
